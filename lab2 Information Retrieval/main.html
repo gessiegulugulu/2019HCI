@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image Search Engine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<meta http-equiv='cache-control' content="no-cache, must-revalidate, post-check=0, pre-check=0">
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" ></script>
+
+</head>
+
+<body style="background: white;>
+
+    <div class="navbar>
+        <div class="navbar-inner">
+            <h1 class="text-center" style="color:black;"><b>IMAGE SEARCH DEMO </b>&nbsp;&nbsp;&nbsp;<a class="navbar-brand" href="">
+                             <img src="/images/logo.svg" style="height:40px;" ></a>
+	    </h1>
+	    
+        </div>
+    </div>
+    <div><br></br><br></br>
+    </div>
+	
+
+    <center></center>	
+
+    
+    <div id="main" class="container">
+        <table class="table" style="
+        background: white;
+        border: 1px solid beige;
+        box-shadow: 3px 5px 15px 0px rgba(0, 0, 0, 0.2), 3px 5px 15px 0 rgba(0, 0, 0, 0.19);">
+            <tr style="background: lightgrey;"><td><b>Chose your file to upload</b></td><td><b></b></td></tr>
+            <tr>
+                <td>
+                    <form method=post enctype=multipart/form-data>
+                        <!--<input data-bind="value: title" type="text" id="inputTask" placeholder="Path to the image" style="width: 150px;">-->
+                    <input type="file" name="file" required />
+                    <input type=submit value ="Search!" onclick="fun()">
+                    <br>
+                     <input type="radio" name="tag"value="all" checked/>all
+                    <input type="radio" name="tag"value="animals"/>animals
+                    <input type="radio" name="tag"value="people"/>people
+                    <input type="radio" name="tag"value="food"/>food
+                    <input type="radio" name="tag"value="structures"/>structures
+                    <input type="radio" name="tag"value="transport"/>transport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    </form>
+                </td>
+                <td>
+                    <b>
+
+                    </b>
+                </td>
+            </tr>
+
+            <tr id="row1" style="display:none;">
+                <td>
+                    <a href=""><button id="clear" style="display:none;">Clear
+                              </button>
+                    </a>
+
+                </td><td></td>
+            </tr>
+
+<!--            <tr id="row2" style="display:none;">-->
+<!--                <td>-->
+<!--                    <input type="button" style='font-size:10px' value="animals" onclick="refinement(this.value)" />&lt;!&ndash;onclick="Calc()" &ndash;&gt;&lt;!&ndash;bird dog&ndash;&gt;-->
+
+<!--                    <input type="button" style='font-size:10px' value="people" onclick="" />-->
+
+<!--                    <input type="button" style='font-size:10px' value="food" onclick="" />&lt;!&ndash; tree  flower&ndash;&gt;-->
+
+<!--                    <input type="button" style='font-size:10px' value="structures" onclick="" />-->
+
+<!--                    <input type="button" style='font-size:10px' value="transport" onclick="" />-->
+
+<!--                </td>-->
+
+        </table>
+        
+        
+    </div>
+
+    <center>
+    <img id="load" src="/images/ajax-loader.gif" style="height:100px;weight:100px;display:none;" >
+    </center>
+    <div id="main" class="container">
+       <table id="table" class="table" style="background: white; border: 1px ;display:none;" ><tbody>
+        <tr><span id = "num"></span><td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img0" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+" width="200" height="200">
+   		
+             </td>
+             
+             <td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img1" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+   
+" width="200" height="200">
+   		 
+             </td>
+             <td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img2" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+" width="200" height="200">
+   		 
+             </td>
+         </tr>
+         <tr style="background: white;"><td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img3" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+" width="200" height="200">
+   		 
+             </td>
+             <td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img4" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+" width="200" height="200">
+   		
+             </td>
+             <td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img5" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+" width="200" height="200">
+   		
+             </td>
+         </tr>
+	<tr><td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img6" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+" width="200" height="200">
+   		
+             </td>
+             <td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img7" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+" width="200" height="200">
+   		 
+             </td>
+             <td style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;border-right-width: 1px;background: white;
+"><span class="like">❤</span>
+    		<img id="img8" src="" alt="Norway" style="
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 200px;
+    height: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 5px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;border-right-width: 0px;
+" width="200" height="200">
+   		
+             </td>
+         </tr></tbody>
+       </table>
+
+
+
+</div>
+	
+<style type="text/css">
+.like{ font-size:20px;  color:#ccc; cursor:pointer;}
+.cs{color:#c80000;}
+     </style>
+
+
+
+    <script type="text/javascript">
+	function myFunction()
+	{
+	    document.getElementById("predictedResult").innerHTML= "";
+	    $('#clear').hide();
+	}
+
+	 function fun()
+    {
+
+        $('#load').show();
+
+        $("form").submit(function(evt)
+        {
+
+            evt.preventDefault();
+            var formData = new FormData($(this)[0]);
+            var value="imgUpload";
+            var tagList=["animals","people","food","structures","transport"];
+            var tagChoice=document.getElementsByName("tag");
+            for(var i=1;i<tagChoice.length;i++)
+            {
+                if(tagChoice[i].checked)
+                {
+                    value=tagList[i-1];
+                    break;
+                }
+            }
+
+            $.ajax({
+                 url: value,
+                type: 'POST',
+                 data: formData,
+                 //async: false,
+                 cache: false,
+                 contentType: false,
+                 enctype: 'multipart/form-data',
+                 processData: false,
+
+                 success: function (response)
+                 {
+                       $('#load').hide();
+                       $('#row1').show();
+                      //$('#clear').show();
+                      //console.log(response[1]);
+                      //document.getElementById("predictedResult").innerHTML= response;
+
+
+                      document.getElementById("img0").src = response.image0;
+                      document.getElementById("img1").src = response.image1;
+                      document.getElementById("img2").src = response.image2;
+                      document.getElementById("img3").src = response.image3;
+                      document.getElementById("img4").src = response.image4;
+                      document.getElementById("img5").src = response.image5;
+                      document.getElementById("img6").src = response.image6;
+                      document.getElementById("img7").src = response.image7;
+                      document.getElementById("img8").src = response.image8;
+                      document.getElementById("num").innerHTML = "About "+response.num+" relevant results are found for you";
+                      $('#table').show();
+                      $('#clear').show();
+                      //$('#row2').show();
+                 }
+            });
+            return false;
+        })
+    };
+
+
+<!--   function refinement(value)-->
+<!--	{-->
+<!--		    var tag=value;//".txt"-->
+
+<!--		    $('#load').show();-->
+<!--            $("form").submit(function(evt)-->
+<!--            {-->
+<!--                evt.preventDefault();-->
+<!--                var formData = new FormData($(this)[0]);-->
+<!--                    $.ajax({-->
+<!--                    url:value,-->
+<!--                    data: formData,-->
+<!--                    cache: false,-->
+<!--                    contentType: false,-->
+<!--                    enctype: 'multipart/form-data',-->
+<!--                    processData: false,-->
+
+
+<!--                    success: function (response)-->
+<!--                    {-->
+<!--                              $('#load').hide();-->
+<!--                              $('#row1').show();-->
+<!--                              document.getElementById("img0").src = response.image0;-->
+<!--                              document.getElementById("img1").src = response.image1;-->
+<!--                              document.getElementById("img2").src = response.image2;-->
+<!--                              document.getElementById("img3").src = response.image3;-->
+<!--                              document.getElementById("img4").src = response.image4;-->
+<!--                              document.getElementById("img5").src = response.image5;-->
+<!--                              document.getElementById("img6").src = response.image6;-->
+<!--                              document.getElementById("img7").src = response.image7;-->
+<!--                              document.getElementById("img8").src = response.image8;-->
+<!--                              document.getElementById("num").innerHTML = "About "+response.num+" relevant results are found for you";-->
+<!--                              $('#table').show();-->
+<!--                              $('#clear').show();-->
+<!--                              //$('#row2').show();-->
+<!--                    }-->
+
+<!--                    });-->
+<!--                    return false;-->
+<!--            }-->
+
+<!--	};-->
+
+
+  $(function () {
+            $(".like").click(function () {
+                $(this).toggleClass('cs');
+            })
+        })
+
+
+       
+    
+    </script>
+</body>
+</html>
